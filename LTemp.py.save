@@ -2,10 +2,6 @@ import os, glob, time, gspread, sys, datetime
 import paho.mqtt.client as paho
 import json
 
-device_id = '5538550ae1fa489a22000008'
-device_secret = 'rxNXBusm75s6uf/cl/1OHR8oigJDf3r7'
-random_client_id = 'TemperatureTwo'
- 
 #Google account details
 email = 'raspberrypi1409@gmail.com'
 password = 'chico1234'
