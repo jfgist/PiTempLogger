@@ -1,16 +1,10 @@
-import os, glob, time, gspread, sys, datetime
+import os, glob, time, sys, datetime
 import paho.mqtt.client as paho
 import json
-import struct
 
 device_id = ''
 device_secret = ''
 random_client_id = ''
- 
-#Google account details
-email = '@gmail.com'
-password = ''
-spreadsheet = 'Temp_Log2' #the name of the spreadsheet already created 
  
 #initiate the temperature sensor
 os.system('modprobe w1-gpio')
@@ -29,16 +23,9 @@ def on_connect(client, data, flags, rc):
 def on_subscribe(client, userdata, mid, gqos):
     print('Subscribed: ' + str(mid))
 
-def on_message(client, obj, msg):
-    # get the JSON message
-    json_data = msg.payload
-    # check the status property value
-    print(json_data)
-    value = json.loads(json_data)['properties'][0]['value']
-    client.publish(out_topic,json_data)
+# Shouldn't be receiving messages to this device
+# def on_message(client, obj, msg):
 
-
- 
 def read_temp_raw(): #a function that grabs the raw temperature data from the sensor
     print('read temperature')
     f = open(device_file, 'r')
@@ -61,10 +48,9 @@ def read_temp(): #a function that checks that the connection was good and strips
 
 # create the MQTT client
 client = paho.Client(client_id='rando', protocol=paho.MQTTv31)
-#client = paho.Client()
 
 # assign event callbacks
-client.on_message = on_message
+# client.on_message = on_message
 client.on_connect = on_connect
 client.on_subscribe = on_subscribe
 
@@ -79,26 +65,12 @@ client.subscribe(in_topic,0)
  
 while True: #infinite loop
     client.loop()
-    try:
-        # login to google account
-        gc = gspread.login(email,password)  
+    # get the temp
+    temp = read_temp()
+    values = [datetime.datetime.now(), temp]
 
-        # open the spreadsheet
-        worksheet = gc.open(spreadsheet).sheet1
-        
-        # get the temp
-        temp = read_temp()
-        values = [datetime.datetime.now(), temp]
-
-        print('values')
-        print(values)
-        print('write values to spreadsheet')
-
-        worksheet.append_row(values) #write to the spreadsheet
-        payload = { 'properties':[{'id':'54033694bdd5392354000006', 'value':temp }] }
-        client.publish(out_topic, json.dumps(payload))
-        time.sleep(600) #wait 10 minutes
-
-
-    except gspread.AuthenticationError:
-        print('login failed')
+    print('values')
+    print(values)
+    payload = { 'properties':[{'id':'54033694bdd5392354000006', 'value':temp }] }
+    client.publish(out_topic, json.dumps(payload))
+    time.sleep(600) #wait 10 minutes
