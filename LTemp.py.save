@@ -2,10 +2,7 @@ import os, glob, time, gspread, sys, datetime
 import paho.mqtt.client as paho
 import json
 
-#Google account details
-email = 'raspberrypi1409@gmail.com'
-password = 'chico1234'
-spreadsheet = 'Temp_Log2' #the name of the spreadsheet already created 
+
  
 #initiate the temperature sensor
 os.system('modprobe w1-gpio')
