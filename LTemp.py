@@ -2,9 +2,9 @@ import os, glob, time, sys, datetime
 import paho.mqtt.client as paho
 import json
 
-device_id = ''
-device_secret = ''
-random_client_id = ''
+device_id = '55395fec27fd414956000001'
+device_secret = '2iP/XANauc3G1oWbUDFVE0Xgui3FaW+3'
+random_client_id = 'Sunroom'
  
 #initiate the temperature sensor
 os.system('modprobe w1-gpio')
