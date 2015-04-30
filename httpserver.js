@@ -18,11 +18,8 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 var exec=require('child_process').exec;
-var tempAddress = '28-0014526f30ff';
+var tempAddress = '28-00000690f080';
 var tempLocation = '/sys/bus/w1/devices/' + tempAddress + '/w1_slave';
-var buttonScript = __dirname + '/garage-button.py';
-var snapshotScript = __dirname + '/snapshot.sh';
-var snapshotLocation = __dirname + '/images/snapshot.jpg';
 var verbose = true;
 
 http.createServer(function (req, res) {
