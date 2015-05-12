@@ -1,1 +1,33 @@
+#! /bin/sh
+# /etc/init.d/Run_Temp
 
+### Begin Init Info
+# Provides:		Run_Temp
+# Required-Start:	$remote_fs $syslog
+# Required-Stop:	$remote_fs $syslog
+# Default-Start:	2 3 4 5
+# Default-Stop: 	0 1 6
+# Short-Description:	Runs Temp on Startup
+# Description:		Enables the logging of temperature
+### END INIT INFO
+
+case "$1" in
+  start)
+    echo "Starting Temp httpserver"
+    # /usr/local/bin/LTemp.py &
+    /usr/local/bin/node /home/pi/PiTempLogger/httpserver.js > /var/log/PiTempLogger.log 2>&1 &
+    ;;
+  stop)
+    echo "Stopping Temp"
+    # killall Temp.py
+    killall node
+    ;;
+  *)
+    # echo "Usage: /etc/init.d/Temp.py {start|stop}"
+    echo "Usage: service Run_Temp {start|stop}"
+    exit 1
+    ;;
+esac
+
+
+exit 0
