@@ -18,7 +18,8 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 var exec=require('child_process').exec;
-var tempAddress = '28-00000690f080';
+//var tempAddress = '28-00000690f080';
+var tempAddress = '28-0000068fa54a';
 var tempLocation = '/sys/bus/w1/devices/' + tempAddress + '/w1_slave';
 var verbose = true;
 
