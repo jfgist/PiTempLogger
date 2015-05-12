@@ -1,4 +1,7 @@
 #! /usr/bin/python
 
 import urllib2
-urllib2.urlopen("http://192.168.1.40:8037/temperature.json").read()
+json_string = urllib2.urlopen("http://192.168.1.40:8037/temperature.json").read()
+parsed_json = json.loads(json_string)
+
+print(parsed_json[''])
