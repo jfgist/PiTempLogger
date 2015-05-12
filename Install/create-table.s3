@@ -1,3 +1,5 @@
+#http://raspberrywebserver.com/sql-databases/set-up-an-sqlite-database-on-a-raspberry-pi.html
+
 BEGIN;
 CREATE TABLE temps (tdate DATE, ttime TIME, zone TEXT, temperature NUMERIC);
 COMMIT;
