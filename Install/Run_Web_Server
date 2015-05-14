@@ -1,0 +1,32 @@
+#! /bin/sh
+# /etc/init.d/Run_Web_Server
+
+### Begin Init Info
+# Provides:		Run_Web_Server
+# Required-Start:	$remote_fs $syslog
+# Required-Stop:	$remote_fs $syslog
+# Default-Start:	2 3 4 5
+# Default-Stop: 	0 1 6
+# Short-Description:	Runs Web Server on Startup
+# Description:		Blah Bla Bla
+### END INIT INFO
+
+case "$1" in
+  start)
+    echo "Starting Node Webserver"
+    /usr/local/bin/node /home/pi/PiTempLogger/webserver.js > /var/log/PiTempLogger.log 2>&1 &
+    ;;
+  stop)
+    echo "Killing Node"
+    killall node
+    ;;
+  *)
+    # echo "Usage: /etc/init.d/Temp.py {start|stop}"
+    echo "Usage: service Run_Web_Server {start|stop}"
+    exit 1
+    ;;
+esac
+
+
+exit 0
+
